@@ -131,14 +131,14 @@ HostListener是属性装饰器，用来为宿主元素添加事件监听。
 ## @HostBinding
 
 HostBinding 是属性装饰器，用来动态设置宿主元素的属性值。
-    定义：
+定义：
     
     export interface HostBindingDecorator {
         (hostPropertyName?: string): any;
         new (hostPropertyName?: string): any;
     }
     
-    应用：
+应用：
     
     import { Directive, HostBinding, HostListener } from '@angular/core';
     @HostBindings('attr.foo') foo = 'bar'
@@ -154,7 +154,7 @@ HostBinding 是属性装饰器，用来动态设置宿主元素的属性值。
     FormControl代表单一的输入字段，它是Angular表单中的最小单元。
     FormControl封装了这些字段的值和状态，比如是否有效、是否脏（被修改过）或是否有错误等。
 
-    列：
+列：
 
     <input type="text" [formControl]="name" /> 
     let nameControl = new FormControl("Nate"); 
@@ -179,24 +179,30 @@ HostBinding 是属性装饰器，用来动态设置宿主元素的属性值。
 ## FormBuilder
     FormBuilder是一个名副其实的表单构建助手。你应该还记得，表单是由FormControl和FormGroup构成的，而FormBuilder则可以帮助我们创建它们（你可以把它看作一个“工厂”对象）。
     通过在组件类上声明带参数的constructor，我们注入了一个FormBuilder。
+
     <form [formGroup]="myForm">
+
     当使用FormsModule时，NgForm会自动应用于<form>元素上。但其实有一个例外：NgForm不会应用到带formGroup属性的<form>节点上。
     需要记住以下两点。
+
     如果想隐式创建新的FormGroup和FormControl，使用：
+
     ngForm
     ngModel
+
     如果要绑定一个现有的FormGroup和FormControl，使用：
+
     formGroup
     formControl
 
 添加验证
-let control = new FormControl('sku', Validators.required);
-constructor(fb: FormBuilder) { 
-    this.myForm = fb.group({ 
-        'sku': ['', Validators.required] 
-    }); 
-    this.sku = this.myForm.controls['sku']; 
-}
+    let control = new FormControl('sku', Validators.required);
+    constructor(fb: FormBuilder) { 
+        this.myForm = fb.group({ 
+            'sku': ['', Validators.required] 
+        }); 
+        this.sku = this.myForm.controls['sku']; 
+    }
 
 ## EventEmitter
 FormGroup和FormControl都带有EventEmitter（事件发射器），我们可以通过它来观察变化。
