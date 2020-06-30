@@ -111,7 +111,7 @@
 
 ## @HostListener()
 HostListener是属性装饰器，用来为宿主元素添加事件监听。
-    定义：
+定义：
     
     // HostListenerDecorator的定义
     export interface HostListenerDecorator {
@@ -119,7 +119,7 @@ HostListener是属性装饰器，用来为宿主元素添加事件监听。
         new (eventName: string, args?: string[]): any;
     }
     
-    应用：
+应用：
     
     import {HostListener} from '@angular/core';
 
