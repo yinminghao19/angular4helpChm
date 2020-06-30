@@ -206,6 +206,7 @@ HostBinding 是属性装饰器，用来动态设置宿主元素的属性值。
     formControl
 
 添加验证
+
     let control = new FormControl('sku', Validators.required);
     constructor(fb: FormBuilder) { 
         this.myForm = fb.group({ 
@@ -217,6 +218,7 @@ HostBinding 是属性装饰器，用来动态设置宿主元素的属性值。
 ## EventEmitter
 FormGroup和FormControl都带有EventEmitter（事件发射器），我们可以通过它来观察变化。
 想监听控件的变化，我们要：
+
 (1) 通过调用control.valueChanges访问到这个EventEmitter；
 (2) 然后使用.subscribe方法添加一个监听器。
 
@@ -226,6 +228,7 @@ FormGroup和FormControl都带有EventEmitter（事件发射器），我们可以
 * 自定义验证器
 
 Reactive Form创建方法
+
     registerForm: FormGroup;
     constructor(private fb: FormBuilder) {}
     ngOnInit() {
@@ -242,16 +245,22 @@ Reactive Form创建方法
         <input formControlName="lastName">
         <button type="submit">Submit</button>
     </form>
+
 如何使用验证
+
     ngOnInit() {
         this.registerForm = this.fb.group({
             firstName: ['', Validators.required],
             lastName: ['', Validators.pattern('[A-Za-z0-9]*')],
         })
     }
+
 如果一个控件需要多个验证器，可以把它们放在一个数组里面：
+
     lastName: ['', [Validators.pattern('[A-Za-z0-9]*'), Validators.required]]
+
 如果你希望在输入时得到一些提示，可以这样写你的HTML：
+
     <form [formGroup]="registerForm" (ngSubmit)="handleSubmit(registerForm)">
         <label>FirstName:</label>
         <input formControlName="firstName">
@@ -265,7 +274,9 @@ Reactive Form创建方法
         </p>
         <button type="submit" [disabled]="!registerForm.valid">Submit</button>
     </form>
+
 自定义验证器
+
     export function validateUrl(control: AbstractControl){
         if(control.value){
             if(!control.value.startsWith('www') || !control.value.includes('.io')){
@@ -276,13 +287,17 @@ Reactive Form创建方法
         }
         return null;
     }
+
     ↑
+
     this.registerForm = this.fb.group({
         firstName: ['', Validators.required],
         lastName: ['', [Validators.pattern('[A-Za-z0-9]*'), Validators.required]],
         website: ['', validateUrl], // <---
     })
+
     ↑
+
     <label>Website:</label>
     <input formControlName="website">
         <p *ngIf="registerForm.controls.website.hasError('inValidUrl')">  //<---
